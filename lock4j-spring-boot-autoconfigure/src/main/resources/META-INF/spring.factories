@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.xinlc.lock4j.autoconfigure.configuration.Lock4jAutoConfiguration
