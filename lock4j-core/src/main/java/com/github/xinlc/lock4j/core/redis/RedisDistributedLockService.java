@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core.services;
+package com.github.xinlc.lock4j.core.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisDistributedLockService {
 
-	private final RedisTemplate<String, Object> redisTemplate;
+	private final RedisTemplate<Object, Object> redisTemplate;
 
-	public RedisDistributedLockService(RedisTemplate<String, Object> redisTemplate) {
+	public RedisDistributedLockService(RedisTemplate<Object, Object> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
 
@@ -29,7 +29,7 @@ public class RedisDistributedLockService {
 //	private static final String SET_WITH_EXPIRE_TIME = "EX";
 //	private static final String RELEASE_LOCK_SCRIPT = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
-	/* 解锁 Lua 脚本 */
+	/** 解锁 Lua 脚本 */
 	public static final String UNLOCK_LUA;
 
 	static {
@@ -88,7 +88,7 @@ public class RedisDistributedLockService {
 	 * @return
 	 */
 	public void releaseLock(final String key, final String requestId) {
-		List<String> keys = Collections.singletonList(key);
+		List<Object> keys = Collections.singletonList(key);
 		redisTemplate.execute(new DefaultRedisScript<Object>(UNLOCK_LUA, Object.class), keys, requestId);
 	}
 

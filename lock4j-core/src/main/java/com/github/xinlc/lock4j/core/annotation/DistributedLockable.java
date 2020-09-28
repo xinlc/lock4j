@@ -20,9 +20,9 @@ import java.util.concurrent.TimeUnit;
 public @interface DistributedLockable {
 
 	/**
-	 * key 过期时间，防止死锁，默认 500 毫秒
+	 * key 过期时间，防止死锁，默认 3000 毫秒
 	 */
-	long expireTime() default 500L;
+	long expireTime() default 3000L;
 
 	/**
 	 * 时间单位, 默认毫秒

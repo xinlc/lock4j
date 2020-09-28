@@ -1,7 +1,7 @@
 package com.github.xinlc.lock4j.core.aspect;
 
-import com.github.xinlc.lock4j.core.LockKeyGenerator;
-import com.github.xinlc.lock4j.core.LockTemplate;
+import com.github.xinlc.lock4j.core.lock.LockKeyGenerator;
+import com.github.xinlc.lock4j.core.lock.LockTemplate;
 import com.github.xinlc.lock4j.core.annotation.DistributedLockable;
 import org.aspectj.lang.ProceedingJoinPoint;
 

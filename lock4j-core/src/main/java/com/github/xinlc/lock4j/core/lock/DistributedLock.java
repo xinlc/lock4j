@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
 
 /**
  * 分布式锁

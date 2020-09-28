@@ -1,5 +1,6 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.redis;
 
+import com.github.xinlc.lock4j.core.lock.BaseDistributedLock;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ public class RedisDistributedLock extends BaseDistributedLock {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private final RedisOperations<String, String> operations;
+
+	private final String FAILURE = "0";
 
 	/**
 	 * 默认请求锁的超时时间(ms 毫秒)
@@ -184,10 +187,7 @@ public class RedisDistributedLock extends BaseDistributedLock {
 	public boolean releaseLock() {
 		List<String> keys = Collections.singletonList(lockKey);
 		Object result = operations.execute(new DefaultRedisScript<Object>(UNLOCK_LUA, Object.class), keys, lockValue);
-		if (null != result && !"0".equals(result)) {
-			return true;
-		}
-		return false;
+		return null != result && !FAILURE.equals(result);
 	}
 
 	/**

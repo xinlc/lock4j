@@ -1,0 +1,26 @@
+{
+  "groups": [
+    {
+      "name": "lock4j",
+      "type": "com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties",
+      "sourceType": "com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "lock4j.aspect-order",
+      "type": "java.lang.Integer",
+      "description": "Controller Aspect 执行顺序",
+      "sourceType": "com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "lock4j.enable-lock-for-controller",
+      "type": "java.lang.Boolean",
+      "description": "是否开启 Controller 层 API 调用分布式锁",
+      "sourceType": "com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": []
+}

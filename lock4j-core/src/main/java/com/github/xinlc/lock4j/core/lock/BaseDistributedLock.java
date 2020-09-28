@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,9 @@ public abstract class BaseDistributedLock implements AutoCloseable {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * Release lock
+	 * 是否锁
+	 *
+	 * @return 成功失败
 	 */
 	public abstract boolean releaseLock();
 

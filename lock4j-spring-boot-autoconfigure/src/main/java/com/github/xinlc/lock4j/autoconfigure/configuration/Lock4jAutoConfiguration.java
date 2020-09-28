@@ -1,14 +1,14 @@
 package com.github.xinlc.lock4j.autoconfigure.configuration;
 
 import com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties;
-import com.github.xinlc.lock4j.core.LockExecutor;
-import com.github.xinlc.lock4j.core.LockTemplate;
-import com.github.xinlc.lock4j.core.RedisTemplateLockExecutor;
+import com.github.xinlc.lock4j.core.lock.LockExecutor;
+import com.github.xinlc.lock4j.core.lock.LockTemplate;
+import com.github.xinlc.lock4j.core.redis.RedisTemplateLockExecutor;
 import com.github.xinlc.lock4j.core.aspect.DistributedLockableAspect;
-import com.github.xinlc.lock4j.core.services.RedisDistributedLockService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import com.github.xinlc.lock4j.core.redis.RedisDistributedLockService;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @since 1.0.0
  */
 @Configuration
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(Lock4jProperties.class)
 public class Lock4jAutoConfiguration {
 
@@ -31,19 +32,18 @@ public class Lock4jAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
-	@ConditionalOnClass(RedisTemplate.class)
-	public LockExecutor lockExecutor(RedisTemplate<String, Object> redisTemplate) {
+	@ConditionalOnMissingBean(LockExecutor.class)
+	@ConditionalOnBean(RedisTemplate.class)
+	public LockExecutor lockExecutor(RedisTemplate<Object, Object> redisTemplate) {
 		RedisTemplateLockExecutor redisTemplateLockExecutor = new RedisTemplateLockExecutor();
 		redisTemplateLockExecutor.setRedisTemplate(redisTemplate);
 		return redisTemplateLockExecutor;
 	}
 
-
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnClass(RedisTemplate.class)
-	public RedisDistributedLockService redisDistributedLockService(RedisTemplate<String, Object> redisTemplate) {
+	@ConditionalOnBean(RedisTemplate.class)
+	public RedisDistributedLockService redisDistributedLockService(RedisTemplate<Object, Object> redisTemplate) {
 		return new RedisDistributedLockService(redisTemplate);
 	}
 
@@ -61,4 +61,5 @@ public class Lock4jAutoConfiguration {
 		distributedLockableAspect.setOrder(properties.getAspectOrder());
 		return distributedLockableAspect;
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
 
 /**
  * 分布式锁 AOP 处理器
@@ -10,6 +10,8 @@ package com.github.xinlc.lock4j.core;
 public interface LockHandler<T> {
 
 	/**
+	 * aop proceed
+	 *
 	 * @return
 	 * @throws Throwable
 	 */

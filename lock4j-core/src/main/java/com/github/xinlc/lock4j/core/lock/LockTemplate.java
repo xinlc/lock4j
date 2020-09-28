@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
 
 import com.github.xinlc.lock4j.core.annotation.DistributedLockable;
 import org.apache.commons.lang3.RandomStringUtils;

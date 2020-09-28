@@ -1,5 +1,7 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.redis;
 
+import com.github.xinlc.lock4j.core.lock.LockExecutor;
+import com.github.xinlc.lock4j.core.lock.LockInfo;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -17,9 +19,9 @@ public class RedisTemplateLockExecutor implements LockExecutor {
 	private static final RedisScript<String> SCRIPT_UNLOCK = new DefaultRedisScript<>("if redis.call('get',KEYS[1]) == ARGV[1] then return tostring(redis.call('del', KEYS[1])==1) else return 'false' end", String.class);
 	private static final String LOCK_SUCCESS = "OK";
 
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisTemplate<Object, Object> redisTemplate;
 
-	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+	public void setRedisTemplate(RedisTemplate<Object, Object> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
 

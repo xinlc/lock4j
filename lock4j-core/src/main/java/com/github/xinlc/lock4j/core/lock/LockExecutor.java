@@ -1,4 +1,6 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
+
+import com.github.xinlc.lock4j.core.redis.RedisTemplateLockExecutor;
 
 /**
  * 分布式锁核心处理器

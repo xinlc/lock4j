@@ -1,4 +1,4 @@
-package com.github.xinlc.lock4j.core;
+package com.github.xinlc.lock4j.core.lock;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.xinlc.lock4j.core.utils.StringUtil;
@@ -25,9 +25,16 @@ import java.util.Map;
  */
 public interface LockKeyGenerator {
 
-	// 表达式解析器，用来解析 argNames 的参数值
+	/**
+	 * 表达式解析器，用来解析 argNames 的参数值
+	 */
 	ExpressionParser PARSER = new SpelExpressionParser();
 	ThreadLocal<EvaluationContext> THREAD_LOCAL = ThreadLocal.withInitial(StandardEvaluationContext::new);
+
+	/**
+	 * key 前缀
+	 */
+	String LOCK4J_PREFIX = "lock4j:";
 
 	/**
 	 * 默认生成器
@@ -48,7 +55,10 @@ public interface LockKeyGenerator {
 
 		// 如果没指定前缀则使用包名+方法名作为前缀
 		if (StringUtil.isBlank(prefix)) {
-			builder.append(joinPoint.getTarget().getClass().getName()).append(":").append(signature.getName());
+			builder.append(LOCK4J_PREFIX)
+					.append(joinPoint.getTarget().getClass().getName())
+					.append(":")
+					.append(signature.getName());
 		} else {
 			builder.append(prefix);
 		}
@@ -99,6 +109,7 @@ public interface LockKeyGenerator {
 		}
 
 		// 拼接参数 key
-		return builder.append(":").append(StringUtil.simpleJoinToBuilder(names, values, "=", "|"));
+		return builder.append(":")
+				.append(StringUtil.simpleJoinToBuilder(names, values, "=", "|"));
 	}
 }

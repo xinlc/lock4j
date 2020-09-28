@@ -25,6 +25,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 	 * 下划线
 	 */
 	private static final char SEPARATOR = '_';
+	private static final String STR_SEPARATOR = "_";
 
 	private static final ObjectMapper OBJECT_MAPPER;
 
@@ -358,12 +359,12 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
 		if (name == null || name.isEmpty()) {
 			// 没必要转换
 			return "";
-		} else if (!name.contains("_")) {
+		} else if (!name.contains(STR_SEPARATOR)) {
 			// 不含下划线，仅将首字母大写
 			return name.substring(0, 1).toUpperCase() + name.substring(1);
 		}
 		// 用下划线将原始字符串分割
-		String[] camels = name.split("_");
+		String[] camels = name.split(STR_SEPARATOR);
 		for (String camel : camels) {
 			// 跳过原始字符串中开头、结尾的下换线或双重下划线
 			if (camel.isEmpty()) {
