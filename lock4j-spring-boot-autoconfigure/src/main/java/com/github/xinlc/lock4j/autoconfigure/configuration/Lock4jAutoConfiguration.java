@@ -55,9 +55,9 @@ public class Lock4jAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
+	@ConditionalOnMissingBean(BaseDistributedLockableAspect.class)
 	@ConditionalOnProperty(name = "lock4j.enable-lock-for-controller", havingValue = "true", matchIfMissing = true)
-	public BaseDistributedLockableAspect distributedLockableAspect(LockTemplate lockTemplate) {
+	public DistributedLockableAspect distributedLockableAspect(LockTemplate lockTemplate) {
 		DistributedLockableAspect distributedLockableAspect = new DistributedLockableAspect(lockTemplate);
 		distributedLockableAspect.setOrder(properties.getAspectOrder());
 		return distributedLockableAspect;
