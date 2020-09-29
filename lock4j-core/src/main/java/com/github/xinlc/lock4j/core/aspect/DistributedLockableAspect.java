@@ -32,7 +32,7 @@ public class DistributedLockableAspect extends BaseDistributedLockableAspect imp
 	 */
 //	@Pointcut("(@within(org.springframework.stereotype.Controller)" +
 //			"|| @within(org.springframework.web.bind.annotation.RestController))" +
-//			"&& execution(public * com.log4j..*.controller..*.*(..)) " +
+//			"&& execution(public * com.lock4j..*.controller..*.*(..)) " +
 //			"&& @annotation(com.github.xinlc.lock4j.core.annotation.DistributedLockable)")
 
 	@Pointcut("@annotation(com.github.xinlc.lock4j.core.annotation.DistributedLockable)")

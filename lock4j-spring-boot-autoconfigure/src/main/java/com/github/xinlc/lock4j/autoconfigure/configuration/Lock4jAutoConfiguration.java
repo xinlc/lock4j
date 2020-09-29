@@ -1,6 +1,7 @@
 package com.github.xinlc.lock4j.autoconfigure.configuration;
 
 import com.github.xinlc.lock4j.autoconfigure.properties.Lock4jProperties;
+import com.github.xinlc.lock4j.core.aspect.BaseDistributedLockableAspect;
 import com.github.xinlc.lock4j.core.lock.LockExecutor;
 import com.github.xinlc.lock4j.core.lock.LockTemplate;
 import com.github.xinlc.lock4j.core.redis.RedisTemplateLockExecutor;
@@ -56,7 +57,7 @@ public class Lock4jAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(name = "lock4j.enable-lock-for-controller", havingValue = "true", matchIfMissing = true)
-	public DistributedLockableAspect distributedLockableAspect(LockTemplate lockTemplate) {
+	public BaseDistributedLockableAspect distributedLockableAspect(LockTemplate lockTemplate) {
 		DistributedLockableAspect distributedLockableAspect = new DistributedLockableAspect(lockTemplate);
 		distributedLockableAspect.setOrder(properties.getAspectOrder());
 		return distributedLockableAspect;
