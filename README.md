@@ -15,7 +15,7 @@ If your're using Maven, just add the following dependency in `pom.xml`.
 <dependency>
     <groupId>com.github.xinlc</groupId>
     <artifactId>lock4j-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
